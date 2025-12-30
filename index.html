@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>GHOST CHEATS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{--primary:#ff0000}
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:'Quicksand',sans-serif;
+background:
+radial-gradient(circle at top, var(--primary) 0%, transparent 60%),
+#000;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:#fff;
+transition:background .3s;
+}
+
+.glass{
+background:rgba(0,0,0,.7);
+backdrop-filter:blur(14px);
+border-radius:18px;
+border:1px solid var(--primary);
+box-shadow:0 0 30px var(--primary);
+padding:20px;
+width:390px;
+}
+
+.login-title{text-align:center;font-size:30px}
+
+.login-input{
+width:100%;
+padding:14px;
+border-radius:10px;
+border:2px solid var(--primary);
+background:#111;
+color:#fff;
+margin-bottom:12px;
+}
+
+.login-btn,.inject-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:var(--primary);
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+}
+
+.error-message{
+display:none;
+color:#ff4d4d;
+text-align:center;
+margin-top:8px;
+}
+
+.main-container{display:none}
+.main-container.show{display:block}
+
+.top-btn-group{display:flex;gap:6px;margin-bottom:12px}
+.top-btn{
+flex:1;
+padding:8px;
+border:none;
+border-radius:10px;
+background:#111;
+color:#fff;
+font-weight:bold;
+}
+.top-btn.active{background:var(--primary)}
+
+.option-block{display:none}
+.option-block.open{display:block}
+
+/* TOGGLE */
+.toggle{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+}
+
+.switch{position:relative;width:46px;height:24px}
+.switch input{display:none}
+
+.slider{
+position:absolute;
+top:0;left:0;right:0;bottom:0;
+background:#333;
+border-radius:30px;
+transition:.3s;
+}
+
+.slider:before{
+content:"";
+position:absolute;
+height:18px;width:18px;
+left:3px;bottom:3px;
+background:#fff;
+border-radius:50%;
+transition:.3s;
+}
+
+.switch input:checked + .slider{
+background:var(--primary);
+box-shadow:0 0 10px var(--primary);
+}
+
+.switch input:checked + .slider:before{
+transform:translateX(22px);
+}
+
+select,input[type=range],input[type=color]{
+width:100%;
+padding:8px;
+margin-bottom:12px;
+border-radius:6px;
+border:none;
+background:#111;
+color:#fff;
+}
+
+.footer-info{
+font-size:14px;
+margin-top:10px;
+line-height:1.5;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="glass" id="loginContainer">
+<h1 class="login-title">GHOST CHEATS</h1>
+<input type="password" id="passwordInput" class="login-input" placeholder="Digite sua key">
+<button class="login-btn" onclick="login()">LOGIN</button>
+<div class="error-message" id="errorMessage"></div>
+</div>
+
+<!-- PAINEL -->
+<div class="glass main-container" id="mainContainer">
+<h2 style="text-align:center">GHOST CHEATS</h2>
+
+<div class="top-btn-group">
+<button class="top-btn active" onclick="showTab('aim',this)">AIM</button>
+<button class="top-btn" onclick="showTab('sensi',this)">SENSI</button>
+<button class="top-btn" onclick="showTab('extra',this)">EXTRA</button>
+<button class="top-btn" onclick="showTab('misc',this)">MISC</button>
+</div>
+
+<!-- AIM -->
+<div class="option-block open" id="aim">
+<div class="toggle"><span>Aimbot Legit</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+<div class="toggle"><span>Recoil Trick</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+<div class="toggle"><span>Aimbot Rage</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+
+<select>
+<option>Focar em</option>
+<option>Cabeça</option>
+<option>Pescoço</option>
+<option>Corpo</option>
+</select>
+
+<div class="toggle"><span>Exibir FOV</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+<input type="range" min="0" max="360">
+</div>
+
+<!-- SENSI -->
+<div class="option-block" id="sensi">
+<select id="marca" onchange="updateModelos()">
+<option>Selecione a marca</option>
+<option>Samsung</option>
+<option>Xiaomi</option>
+<option>Motorola</option>
+<option>iPhone</option>
+</select>
+
+<select id="modelo">
+<option>Selecione o modelo</option>
+</select>
+
+<select>
+<option>Perfil</option>
+<option>Alta</option>
+<option>Média</option>
+<option>Baixa</option>
+</select>
+</div>
+
+<!-- EXTRA -->
+<div class="option-block" id="extra">
+<p><b>Versão:</b> 1.0</p>
+<select>
+<option>Free Fire</option>
+<option>Free Fire Max</option>
+</select>
+<button class="inject-btn">INJETAR</button>
+</div>
+
+<!-- MISC -->
+<div class="option-block" id="misc">
+<div class="toggle"><span>No Recoil</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+<div class="toggle"><span>Otimizar FPS</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+
+<label>Cor do painel</label>
+<input type="color" id="colorPicker">
+
+<div class="footer-info">
+Developer: @dk.wq<br>
+Discord: @dk.wq<br>
+TikTok: @dkzaadhaa
+</div>
+</div>
+</div>
+
+<script>
+/* LOGIN MOCKAPI */
+async function login(){
+    const key = document.getElementById('passwordInput').value.trim();
+    const error = document.getElementById('errorMessage');
+    error.style.display="none";
+
+    if(!key){
+        error.innerText="Digite uma key";
+        error.style.display="block";
+        return;
+    }
+
+    try{
+        const res = await fetch("https://69533a53a319a928023adf16.mockapi.io/keys");
+        if(!res.ok) throw new Error("erro");
+        const data = await res.json();
+
+        const valida = data.find(k => k.key === key && k.status === "ativa");
+        if(!valida){
+            error.innerText="Key inválida ou expirada";
+            error.style.display="block";
+            return;
+        }
+
+        document.getElementById('loginContainer').style.display="none";
+        document.getElementById('mainContainer').classList.add('show');
+
+    }catch(e){
+        error.innerText="Erro ao conectar ao servidor";
+        error.style.display="block";
+    }
+}
+
+/* TABS */
+function showTab(id,btn){
+document.querySelectorAll('.option-block').forEach(o=>o.classList.remove('open'));
+document.getElementById(id).classList.add('open');
+document.querySelectorAll('.top-btn').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+}
+
+/* MODELOS */
+function updateModelos(){
+const modelos={
+Samsung:["A10","A20","A30","S20","S21","S22"],
+Xiaomi:["Redmi 9","Note 10","Note 11","Poco X3"],
+Motorola:["G20","G30","G40","Edge"],
+iPhone:["X","XR","11","12","13","14"]
+};
+const marca=document.getElementById('marca').value;
+const modelo=document.getElementById('modelo');
+modelo.innerHTML="<option>Selecione o modelo</option>";
+(modelos[marca]||[]).forEach(m=>{
+const o=document.createElement("option");
+o.textContent=m;
+modelo.appendChild(o);
+});
+}
+
+/* COR */
+document.getElementById('colorPicker').oninput=e=>{
+document.documentElement.style.setProperty('--primary',e.target.value);
+}
+</script>
+
+</body>
+</html>
