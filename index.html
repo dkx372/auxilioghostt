@@ -1,296 +1,245 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GHOST CHEATS</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
-:root{--primary:#ff0000}
-*{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:'Quicksand',sans-serif;
-background:
-radial-gradient(circle at top, var(--primary) 0%, transparent 60%),
-#000;
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-color:#fff;
-transition:background .3s;
+:root{
+  --theme:#ffb300;
+  --bg:#0b0505;
 }
 
-.glass{
-background:rgba(0,0,0,.7);
-backdrop-filter:blur(14px);
-border-radius:18px;
-border:1px solid var(--primary);
-box-shadow:0 0 30px var(--primary);
-padding:20px;
-width:390px;
+/* ================= GLOBAL ================= */
+*{ box-sizing:border-box; font-family:Arial Black, Arial, sans-serif; }
+body{ margin:0; width:100vw; height:100vh; overflow:hidden; color:#fff; background:#000; }
+
+/* ================= BACKGROUNDS ================= */
+canvas{ position:fixed; inset:0; z-index:0; display:block; }
+
+/* ================= LOGIN ================= */
+.login{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:2;
+}
+.login-box{
+  width:320px; padding:26px; background:#120000; border-radius:22px; border:3px solid #ff1e1e;
+  box-shadow:0 0 25px #ff1e1e;
+}
+.login-box h2{ text-align:center; color:#ff3b3b; margin-bottom:18px; }
+.login-box input{
+  width:100%; padding:12px; margin-bottom:12px; border:none; border-radius:14px;
+  outline:none; background:#220000; color:#fff; font-size:15px;
+}
+.login-box button{
+  width:100%; padding:12px; border:none; border-radius:18px;
+  background:linear-gradient(45deg,#ff0000,#ff5f5f); color:#fff; font-size:16px;
+  font-weight:bold; cursor:pointer; box-shadow:0 0 20px #ff0000,0 0 40px #ff5f5f; transition:0.3s;
+}
+.login-box button:hover{
+  box-shadow:0 0 25px #ff0000,0 0 50px #ff5f5f;
 }
 
-.login-title{text-align:center;font-size:30px}
-
-.login-input{
-width:100%;
-padding:14px;
-border-radius:10px;
-border:2px solid var(--primary);
-background:#111;
-color:#fff;
-margin-bottom:12px;
+/* ================= APP ================= */
+.app{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:360px; height:345px; background:var(--bg); border-radius:26px;
+  border:4px solid var(--theme); box-shadow:0 0 22px var(--theme);
+  display:none; overflow:hidden; z-index:2;
 }
 
-.login-btn,.inject-btn{
-width:100%;
-padding:14px;
-border:none;
-border-radius:10px;
-background:var(--primary);
-color:#fff;
-font-weight:bold;
-cursor:pointer;
-}
+/* SIDEBAR */
+.sidebar{ width:58px; background:#090303; display:flex; flex-direction:column; align-items:center; padding:10px 0; gap:14px; }
+.side-btn{ width:40px; height:40px; border-radius:50%; background:#140606; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.side-btn svg{ width:20px; height:20px; stroke:#fff; }
 
-.error-message{
-display:none;
-color:#ff4d4d;
-text-align:center;
-margin-top:8px;
-}
+/* CONTEÚDO */
+.main{ display:flex; height:100%; }
+.content{ flex:1; padding:12px; overflow:hidden; }
+h2{ margin:0 0 10px; font-size:19px; color:var(--theme); text-align:center; }
 
-.main-container{display:none}
-.main-container.show{display:block}
-
-.top-btn-group{display:flex;gap:6px;margin-bottom:12px}
-.top-btn{
-flex:1;
-padding:8px;
-border:none;
-border-radius:10px;
-background:#111;
-color:#fff;
-font-weight:bold;
-}
-.top-btn.active{background:var(--primary)}
-
-.option-block{display:none}
-.option-block.open{display:block}
+/* CARD */
+.card{ background:linear-gradient(180deg,#1c0a0a,#0f0505); border-radius:18px; padding:12px; margin-bottom:8px; }
+.row{ display:flex; justify-content:space-between; align-items:center; font-size:17px; }
 
 /* TOGGLE */
-.toggle{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:12px;
-}
+.toggle{ width:50px; height:26px; background:#333; border-radius:20px; position:relative; cursor:pointer; }
+.toggle::after{ content:""; width:22px; height:22px; background:#aaa; border-radius:50%; position:absolute; top:2px; left:2px; }
+.toggle.on{ background:var(--theme); }
+.toggle.on::after{ left:26px; background:#000; }
 
-.switch{position:relative;width:46px;height:24px}
-.switch input{display:none}
+/* SLIDER */
+.precision{ display:flex; align-items:center; gap:8px; font-size:15px; }
+.precision input{ flex:1; -webkit-appearance:none; height:4px; background:#777; border-radius:5px; }
+.precision input::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; background:#fff; border-radius:50%; }
 
-.slider{
-position:absolute;
-top:0;left:0;right:0;bottom:0;
-background:#333;
-border-radius:30px;
-transition:.3s;
-}
+/* BOTÕES */
+button{ width:100%; padding:12px; border:none; border-radius:26px; font-size:16px; font-weight:bold; cursor:pointer; background:var(--theme); color:#000; margin-bottom:6px; }
 
-.slider:before{
-content:"";
-position:absolute;
-height:18px;width:18px;
-left:3px;bottom:3px;
-background:#fff;
-border-radius:50%;
-transition:.3s;
-}
+/* INFO */
+.creator{ color:#ff3b3b; text-align:center; font-size:15px; }
+.colors{ display:flex; justify-content:space-around; margin-top:10px; }
+.color{ width:26px; height:26px; border-radius:50%; cursor:pointer; }
 
-.switch input:checked + .slider{
-background:var(--primary);
-box-shadow:0 0 10px var(--primary);
-}
-
-.switch input:checked + .slider:before{
-transform:translateX(22px);
-}
-
-select,input[type=range],input[type=color]{
-width:100%;
-padding:8px;
-margin-bottom:12px;
-border-radius:6px;
-border:none;
-background:#111;
-color:#fff;
-}
-
-.footer-info{
-font-size:14px;
-margin-top:10px;
-line-height:1.5;
-text-align:center;
-}
 </style>
 </head>
-
 <body>
 
+<canvas id="bgCanvas"></canvas>
+
 <!-- LOGIN -->
-<div class="glass" id="loginContainer">
-<h1 class="login-title">GHOST CHEATS</h1>
-<input type="password" id="passwordInput" class="login-input" placeholder="Digite sua key">
-<button class="login-btn" onclick="login()">LOGIN</button>
-<div class="error-message" id="errorMessage"></div>
+<div class="login" id="login">
+  <div class="login-box">
+    <h2>GHOST CHEATS</h2>
+    <input id="key" placeholder="Digite sua Key">
+    <button onclick="login()">ENTRAR</button>
+  </div>
 </div>
 
-<!-- PAINEL -->
-<div class="glass main-container" id="mainContainer">
-<h2 style="text-align:center">GHOST CHEATS</h2>
+<!-- APP -->
+<div class="app" id="app">
+  <div class="main">
+    <div class="sidebar">
+      <div class="side-btn" onclick="openTab('aim')"><svg fill="none" stroke-width="2"><circle cx="10" cy="10" r="7"/></svg></div>
+      <div class="side-btn" onclick="openTab('arma')"><svg fill="none" stroke-width="2"><path d="M2 10h16"/></svg></div>
+      <div class="side-btn" onclick="openTab('div')"><svg fill="none" stroke-width="2"><circle cx="10" cy="10" r="3"/></svg></div>
+      <div class="side-btn" onclick="openTab('seg')"><svg fill="none" stroke-width="2"><path d="M5 5h10v10H5z"/></svg></div>
+      <div class="side-btn" onclick="openTab('inj')"><svg fill="none" stroke-width="2"><path d="M5 15L15 5"/></svg></div>
+      <div class="side-btn" onclick="openTab('info')"><svg fill="none" stroke-width="2"><circle cx="10" cy="10" r="1"/></svg></div>
+    </div>
 
-<div class="top-btn-group">
-<button class="top-btn active" onclick="showTab('aim',this)">AIM</button>
-<button class="top-btn" onclick="showTab('sensi',this)">SENSI</button>
-<button class="top-btn" onclick="showTab('extra',this)">EXTRA</button>
-<button class="top-btn" onclick="showTab('misc',this)">MISC</button>
-</div>
+    <div class="content">
 
-<!-- AIM -->
-<div class="option-block open" id="aim">
-<div class="toggle"><span>Aimbot Legit</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-<div class="toggle"><span>Recoil Trick</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-<div class="toggle"><span>Aimbot Rage</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+      <div id="aim">
+        <h2>AIMBOT</h2>
+        <div class="card"><div class="row">Aimbot <div class="toggle"></div></div></div>
+        <div class="card"><div class="row">Aumentar Precisão <div class="toggle"></div></div></div>
+        <div class="card">
+          <div class="precision">
+            <span>Precisão</span>
+            <input type="range" min="0" max="10" value="5" oninput="p.innerText=this.value">
+            <span id="p">5</span>
+          </div>
+        </div>
+      </div>
 
-<select>
-<option>Focar em</option>
-<option>Cabeça</option>
-<option>Pescoço</option>
-<option>Corpo</option>
-</select>
+      <div id="arma" style="display:none">
+        <h2>ARMA</h2>
+        <div class="card"><div class="row">Sem Recuo <div class="toggle"></div></div></div>
+        <div class="card"><div class="row">Precisão Avançada <div class="toggle"></div></div></div>
+      </div>
 
-<div class="toggle"><span>Exibir FOV</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-<input type="range" min="0" max="360">
-</div>
+      <div id="div" style="display:none">
+        <h2>DIVERSOS</h2>
+        <div class="card"><div class="row">Ativar 120 FPS <div class="toggle"></div></div></div>
+        <div class="card"><div class="row">Ativar Otimização <div class="toggle"></div></div></div>
+      </div>
 
-<!-- SENSI -->
-<div class="option-block" id="sensi">
-<select id="marca" onchange="updateModelos()">
-<option>Selecione a marca</option>
-<option>Samsung</option>
-<option>Xiaomi</option>
-<option>Motorola</option>
-<option>iPhone</option>
-</select>
+      <div id="seg" style="display:none">
+        <h2>SEGURANÇA</h2>
+        <div class="card"><div class="row">Anti Ban <div class="toggle"></div></div></div>
+      </div>
 
-<select id="modelo">
-<option>Selecione o modelo</option>
-</select>
+      <div id="inj" style="display:none">
+        <h2>INJEÇÃO</h2>
+        <button>Abrir Free Fire</button>
+        <button>Abrir Free Fire Max</button>
+      </div>
 
-<select>
-<option>Perfil</option>
-<option>Alta</option>
-<option>Média</option>
-<option>Baixa</option>
-</select>
-</div>
+            <div id="info" style="display:none">
+        <h2>INFORMAÇÕES</h2>
+        <div class="creator">Developer: @dk.wq</div>
+        
+        <button onclick="window.open('https://discord.gg/E6Wu5DqYrx', '_blank')">
+          🔗 Acessar Discord
+        </button>
 
-<!-- EXTRA -->
-<div class="option-block" id="extra">
-<p><b>Versão:</b> 1.0</p>
-<select>
-<option>Free Fire</option>
-<option>Free Fire Max</option>
-</select>
-<button class="inject-btn">INJETAR</button>
-</div>
+        <div class="colors">
+          <div class="color" style="background:#ffb300" onclick="setTheme('#ffb300')"></div>
+          <div class="color" style="background:#1e90ff" onclick="setTheme('#1e90ff')"></div>
+          <div class="color" style="background:#00ff88" onclick="setTheme('#00ff88')"></div>
+          <div class="color" style="background:#ff3b3b" onclick="setTheme('#ff3b3b')"></div>
+          <div class="color" style="background:#ff5fd2" onclick="setTheme('#ff5fd2')"></div>
+        </div>
+      </div>
 
-<!-- MISC -->
-<div class="option-block" id="misc">
-<div class="toggle"><span>No Recoil</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-<div class="toggle"><span>Otimizar FPS</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-
-<label>Cor do painel</label>
-<input type="color" id="colorPicker">
-
-<div class="footer-info">
-Developer: @dk.wq<br>
-Discord: @dk.wq<br>
-TikTok: @dkzaadhaa
-</div>
-</div>
+    </div>
+  </div>
 </div>
 
 <script>
-/* LOGIN MOCKAPI */
+// ================= BACKGROUND ANIMADO =================
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let lines = [];
+const lineCount = 40;
+for(let i=0;i<lineCount;i++){
+  lines.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    length: Math.random()*200+100,
+    speed: Math.random()*0.5+0.5,
+    angle: Math.random()*Math.PI*2
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  lines.forEach(l=>{
+    ctx.beginPath();
+    ctx.strokeStyle = currentColor || 'red';
+    ctx.lineWidth = 2;
+    ctx.moveTo(l.x, l.y);
+    ctx.lineTo(l.x + Math.cos(l.angle)*l.length, l.y + Math.sin(l.angle)*l.length);
+    ctx.stroke();
+
+    l.x += Math.cos(l.angle)*l.speed;
+    l.y += Math.sin(l.angle)*l.speed;
+
+    if(l.x>canvas.width+100) l.x=-100;
+    if(l.x<-100) l.x=canvas.width+100;
+    if(l.y>canvas.height+100) l.y=-100;
+    if(l.y<-100) l.y=canvas.height+100;
+  });
+  requestAnimationFrame(draw);
+}
+
+let currentColor = 'red';
+draw();
+
+// ================= LOGIN VIA API KEY =================
+const apiUrl = "https://69533a53a319a928023adf16.mockapi.io/keys";
 async function login(){
-    const key = document.getElementById('passwordInput').value.trim();
-    const error = document.getElementById('errorMessage');
-    error.style.display="none";
+  const keyInput = document.getElementById("key").value.trim();
+  if(!keyInput) return alert("Digite sua Key");
 
-    if(!key){
-        error.innerText="Digite uma key";
-        error.style.display="block";
-        return;
-    }
+  try{
+    const res = await fetch(apiUrl);
+    const data = await res.json();
 
-    try{
-        const res = await fetch("https://69533a53a319a928023adf16.mockapi.io/keys");
-        if(!res.ok) throw new Error("erro");
-        const data = await res.json();
-
-        const valida = data.find(k => k.key === key && k.status === "ativa");
-        if(!valida){
-            error.innerText="Key inválida ou expirada";
-            error.style.display="block";
-            return;
-        }
-
-        document.getElementById('loginContainer').style.display="none";
-        document.getElementById('mainContainer').classList.add('show');
-
-    }catch(e){
-        error.innerText="Erro ao conectar ao servidor";
-        error.style.display="block";
-    }
+    const validKey = data.find(k => k.key && k.key.trim() === keyInput);
+    if(validKey){
+      document.getElementById("login").style.display="none";
+      document.getElementById("app").style.display="block";
+      setTheme(validKey.color || '#ffb300');
+    } else alert("Key inválida");
+  }catch(err){ console.error(err); alert("Erro ao validar Key"); }
 }
 
-/* TABS */
-function showTab(id,btn){
-document.querySelectorAll('.option-block').forEach(o=>o.classList.remove('open'));
-document.getElementById(id).classList.add('open');
-document.querySelectorAll('.top-btn').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
+// ================= TOGGLE =================
+document.querySelectorAll('.toggle').forEach(t=>{ t.onclick=()=>t.classList.toggle('on') });
+function openTab(id){ document.querySelectorAll('.content > div').forEach(d=>d.style.display='none'); document.getElementById(id).style.display='block'; }
+
+// ================= ALTERAR COR =================
+function setTheme(color){
+  document.documentElement.style.setProperty('--theme', color);
+  currentColor = color; // muda cor do fundo
 }
 
-/* MODELOS */
-function updateModelos(){
-const modelos={
-Samsung:["A10","A20","A30","S20","S21","S22"],
-Xiaomi:["Redmi 9","Note 10","Note 11","Poco X3"],
-Motorola:["G20","G30","G40","Edge"],
-iPhone:["X","XR","11","12","13","14"]
-};
-const marca=document.getElementById('marca').value;
-const modelo=document.getElementById('modelo');
-modelo.innerHTML="<option>Selecione o modelo</option>";
-(modelos[marca]||[]).forEach(m=>{
-const o=document.createElement("option");
-o.textContent=m;
-modelo.appendChild(o);
-});
-}
+window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
 
-/* COR */
-document.getElementById('colorPicker').oninput=e=>{
-document.documentElement.style.setProperty('--primary',e.target.value);
-}
 </script>
-
 </body>
 </html>
