@@ -89,7 +89,7 @@ button{ width:100%; padding:12px; border:none; border-radius:26px; font-size:16p
 <!-- LOGIN -->
 <div class="login" id="login">
   <div class="login-box">
-    <h2>GG CHEATS</h2>
+    <h2>GHOST CHEATS</h2>
     <input id="key" placeholder="Digite sua Key">
     <button onclick="login()">ENTRAR</button>
   </div>
@@ -223,23 +223,40 @@ let currentColor = 'red';
 draw();
 
 // ================= LOGIN VIA API KEY =================
-const apiUrl = "https://69d806379c5ebb0918c8b532.mockapi.io/Keys";
-async function login(){
-  const keyInput = document.getElementById("key").value.trim();
-  if(!keyInput) return alert("Digite sua Key");
+const apiUrl = "https://gerador-key.vercel.app/api/licenses/validate";
 
-  try{
-    const res = await fetch(apiUrl);
+async function login() {
+  const keyInput = document.getElementById("key").value.trim();
+  if (!keyInput) return alert("Digite sua Key");
+
+  try {
+    const res = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key: keyInput })
+    });
     const data = await res.json();
 
-    const validKey = data.find(k => k.key && k.key.trim() === keyInput);
-    if(validKey){
-      document.getElementById("login").style.display="none";
-      document.getElementById("app").style.display="block";
-      setTheme(validKey.color || '#ffb300');
-    } else alert("Key inválida");
-  }catch(err){ console.error(err); alert("Erro ao validar Key"); }
+    if (data.valid) {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      setTheme('#ffb300'); // a nova API não tem campo de cor (veja abaixo)
+    } else {
+      const msgs = {
+        LICENSE_NOT_FOUND: "Key inválida",
+        LICENSE_EXPIRED: "Key expirada",
+        LICENSE_REVOKED: "Key revogada",
+        INVALID_FORMAT: "Formato inválido. Use XXXX-XXXX-XXXX-XXXX",
+        RATE_LIMITED: "Muitas tentativas. Aguarde um instante."
+      };
+      alert(msgs[data.reason] || "Key inválida");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao validar Key");
+  }
 }
+
 
 // ================= TOGGLE =================
 document.querySelectorAll('.toggle').forEach(t=>{ t.onclick=()=>t.classList.toggle('on') });
